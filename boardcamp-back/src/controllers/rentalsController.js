@@ -6,15 +6,12 @@ export async function getRentals(req, res) {
 
   try {
     const data = await db.query(`SELECT rentals.*,
-        json_build_object(
-            'id', customers.id,'name', customers."name"
-        ) AS customer,
-        json_build_object(
-            'id', games.id,'name', games."name"
-        ) AS game FROM rentals
-        
-        JOIN customers ON rentals."customerId" = customers.id
-        JOIN games ON rentals."gameId" = games.id;`);
+    json_build_object('id', customers.id, 'name', customers.name) AS customer,
+    json_build_object('id', games.id, 'name', games.name) AS game 
+    FROM rentals
+    JOIN customers ON rentals."customerId" = customers.id
+    JOIN games ON rentals."gameId" = games.id;
+    `);
     res.send(data.rows);
   } catch (error) {
     res.status(500).send(`Erro no banco de dados! ${error.message}`);

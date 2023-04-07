@@ -25,6 +25,7 @@ export async function getClientId(req, res) {
 export async function createClient(req, res) {
 
     const {name, phone, cpf, birthday} = req.body
+    console.log(req.body, res.locals.costumer)
 
     try {
         await db.query(`INSERT INTO customers (name, phone, cpf, birthday) VALUES ($1, $2, $3, $4);`, [name, phone, cpf, birthday]);
